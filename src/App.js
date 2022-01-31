@@ -7,3 +7,5 @@ export default function App() {
     </div>
   );
 }
+
+//npm run deploy

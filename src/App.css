@@ -90,7 +90,7 @@ button.generate-meme:hover {
   height: 100vh;
   width: 100vw;
 }
-.socila {
+.social {
   display: flex;
   flex-direction: row;
   display: inline;
@@ -99,6 +99,13 @@ button.generate-meme:hover {
 @media only screen and (max-width: 680px) {
   .meme-generator-container {
     flex-direction: column;
+  }
+  input {
+    width: 90%;
+  }
+
+  button.generate-meme {
+    width: 90%;
   }
 }
 

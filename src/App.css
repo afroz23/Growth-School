@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 .App {
   display: flex;
   flex-direction: column;
@@ -8,8 +12,19 @@
 
 .meme-container {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px;
   flex-wrap: wrap;
   min-height: 90vh;
+}
+.heading {
+  width: 100%;
+  text-align: center;
+  background-color: #00c3ff;
+  color: white;
+  height: 50px;
+  margin-bottom: 20px;
 }
 
 .meme-generator-container {
@@ -71,12 +86,23 @@ button.generate-meme:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
+}
+.socila {
+  display: flex;
+  flex-direction: row;
+  display: inline;
 }
 
 @media only screen and (max-width: 680px) {
   .meme-generator-container {
     flex-direction: column;
   }
+}
+
+.error {
+  color: red;
+  font-size: 20px;
 }

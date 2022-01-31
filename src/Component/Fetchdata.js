@@ -12,6 +12,7 @@ export default function Fetchdata() {
   const [Text, setText] = useState({ TopText: "", BottomText: "" });
   const [header, setHeader] = useState("Pick a Template");
   const [meme, setmeme] = useState(null);
+  const [Error, setError] = useState("");
 
   const url = "https://api.imgflip.com/get_memes";
 
@@ -24,6 +25,9 @@ export default function Fetchdata() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (Text.TopText === "" || Text.BottomText === "") {
+      return setError("Invalid input");
+    }
     setText({ TopText: "", BottomText: "" });
     const params = {
       template_id: Meme.id,
@@ -48,12 +52,17 @@ export default function Fetchdata() {
     return (
       <div className="meme-generated">
         <img src={meme.url} alt="meme" />
+        <div className="social">
+          <p>LinkedIn</p>
+          <p>GitHub</p>
+          <p>Facebook</p>
+        </div>
       </div>
     );
   }
   return (
     <div className="App">
-      <h1>{header}</h1>
+      <h1 className="heading">{header}</h1>
 
       <div>{loading && <h1>loading...</h1>}</div>
       {Meme && (
@@ -64,6 +73,7 @@ export default function Fetchdata() {
             </div>
           </div>
           <div className="input-field">
+            <p className="error">{Error}</p>
             <input
               type="text"
               value={Text.TopText}

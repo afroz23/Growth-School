@@ -1,55 +1,85 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+const objectToQueryParam = (obj) => {
+  const params = Object.entries(obj).map(([key, value]) => `${key}=${value}`);
+  return "?" + params.join("&");
+};
 export default function Fetchdata() {
   const [Memes, setMemes] = useState([]);
   const [Meme, setMeme] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [TopText, setTopText] = useState("");
-  const [BottomText, setBottomText] = useState("");
-  const [text, setText] = useState({ text0: "", text1: "" });
+  const [Text, setText] = useState({ TopText: "", BottomText: "" });
   const [header, setHeader] = useState("Pick a Template");
+  const [meme, setmeme] = useState(null);
 
   const url = "https://api.imgflip.com/get_memes";
+
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(url);
-      const data = await response.json();
-      setMemes(data.data.memes);
-      setLoading(false);
-    };
-    fetchData();
+    axios.get(url).then((res) => {
+      setMemes(res.data.data.memes);
+      setLoading(!loading);
+    });
   }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setText({ text0: TopText, text1: BottomText });
-    setTopText("");
-    setBottomText("");
+    setText({ TopText: "", BottomText: "" });
+    const params = {
+      template_id: Meme.id,
+      text0: Text.TopText,
+      text1: Text.BottomText,
+      username: "afroz23",
+      password: "dhu3lpdeyv",
+    };
+    axios
+      .post(
+        `https://api.imgflip.com/caption_image${objectToQueryParam(params)}`
+      )
+      .then((response) => {
+        console.log(response.data.data);
+        setmeme(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
+  if (meme) {
+    return (
+      <div className="meme-generated">
+        <img src={meme.url} alt="meme" />
+      </div>
+    );
+  }
   return (
     <div className="App">
       <h1>{header}</h1>
 
       <div>{loading && <h1>loading...</h1>}</div>
       {Meme && (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <h1>{text.text0}</h1>
-            <img src={Meme.url} alt="picked" />
-            <h1>{text.text1}</h1>
+        <form onSubmit={handleSubmit} className="meme-generator-container">
+          <div className="meme-alignment">
+            <div>
+              <img src={Meme.url} alt="picked" className="meme" />
+            </div>
           </div>
-          <input
-            type="text"
-            value={TopText}
-            placeholder="top text"
-            onChange={(e) => setTopText(e.target.value)}
-          />
-          <input
-            type="text"
-            value={BottomText}
-            placeholder="botton text"
-            onChange={(e) => setBottomText(e.target.value)}
-          />
-          <button type="submit">add text</button>
+          <div className="input-field">
+            <input
+              type="text"
+              value={Text.TopText}
+              placeholder="top text"
+              onChange={(e) => setText({ ...Text, TopText: e.target.value })}
+            />
+            <input
+              type="text"
+              value={Text.BottomText}
+              placeholder="botton text"
+              onChange={(e) => setText({ ...Text, BottomText: e.target.value })}
+            />
+            <button type="submit" className="generate-meme">
+              Generate meme
+            </button>
+          </div>
         </form>
       )}
       <div>
@@ -62,7 +92,7 @@ export default function Fetchdata() {
                   alt="meme"
                   onClick={() => {
                     setMeme(meme);
-                    setHeader("Generate meme");
+                    setHeader("Meme Generator");
                   }}
                 />
               </div>

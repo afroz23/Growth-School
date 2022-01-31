@@ -3,13 +3,80 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: azure;
 }
 
 .meme-container {
   display: flex;
   flex-wrap: wrap;
+  min-height: 90vh;
 }
 
+.meme-generator-container {
+  display: flex;
+  flex-direction: row;
+  min-width: 80vw;
+  min-height: 80vh;
+  background-color: white;
+  border: 2px black solid;
+  border-radius: 5px;
+  justify-content: space-evenly;
+}
+
+form .input-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.meme {
+  width: 300px;
+}
 img {
-  width: 250px;
+  width: 280px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button.generate-meme {
+  width: 100%;
+  background-color: #00c3ff;
+  color: white;
+  padding: 14px 20px;
+  font-size: 25px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button.generate-meme:hover {
+  background-color: #26e9f0;
+}
+.meme-alignment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.meme-generated {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+@media only screen and (max-width: 680px) {
+  .meme-generator-container {
+    flex-direction: column;
+  }
 }

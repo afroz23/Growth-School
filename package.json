@@ -2,7 +2,7 @@
     "name": "Meme_generator",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://afroz23.github.io/meme_generator/",
+    "homepage": "https://afroz23.github.io/Meme_generator/",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.1",
         "@testing-library/react": "^12.1.2",
